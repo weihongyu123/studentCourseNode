@@ -7,14 +7,11 @@ module.exports = {
     db: {
         host: "127.0.0.1",
         port: "3306",
-        database: "fe_test",
-        user: "fe_test",
-        password: "fe_test",
+        database: "courseSelection",
+        user: "root",
+        password: "123456",
         connectionLimit: 2,
     },
-    //开发环境，普通redis配置
-    redis: "redis://127.0.0.1:6379",
-
     //mongodb配置
     mg: {
         name: "fe_topic",

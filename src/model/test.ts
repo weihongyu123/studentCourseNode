@@ -1,8 +1,8 @@
 import { Model, DataTypes } from "sequelize";
 import db from "../db//mysql";
 
-class Files extends Model {}
-Files.init(
+class Student extends Model { }
+Student.init(
     {
         id: {
             type: DataTypes.INTEGER,
@@ -18,7 +18,7 @@ Files.init(
     {
         sequelize: db,
         freezeTableName: true,
-        tableName: "t_files",
+        tableName: "student",
     }
 );
 
@@ -27,10 +27,10 @@ Files.init(
 
 export default {
     insert: function (model: any) {
-        return Files.create(model);
+        return Student.create(model);
     },
     get: function (id: number) {
-        return Files.findOne({
+        return Student.findOne({
             where: {
                 id,
             },

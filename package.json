@@ -1,5 +1,5 @@
 {
-    "name": "node-ts-template",
+    "name": "source-selection",
     "version": "1.0.0",
     "description": "node+typescript的模版脚手架",
     "main": "index.js",
@@ -23,11 +23,9 @@
         "axios": "0.21.3",
         "config": "3.3.7",
         "cron": "1.8.2",
-        "ioredis": "4.27.8",
         "koa": "2.13.4",
         "koa-body": "4.1.1",
         "@koa/router": "10.1.1",
-        "mongodb": "4.4.1",
         "mysql2": "2.3.3",
         "lru-cache": "7.4.1",
         "sequelize": "6.17.0",
@@ -40,7 +38,6 @@
         "@types/koa": "2.11.3",
         "@types/koa__router": "8.0.11",
         "@types/lru-cache": "7.4.0",
-        "@types/mongodb": "4.0.7",
         "nodemon": "2.0.15",
         "ts-node": "10.6.0",
         "typescript": "4.6.2"
