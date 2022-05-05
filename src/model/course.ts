@@ -23,6 +23,9 @@ Course.init(
         },
         place: {
             type: DataTypes.STRING(255),
+        },
+        teacherId: {
+            type: DataTypes.INTEGER,
             defaultValue: "",
         },
         createdAt: {
@@ -43,7 +46,6 @@ Course.init(
 
 export default {
     insert: function (model: any) {
-        console.log('model', model)
         return Course.create(model);
     },
     get: function (id: number) {

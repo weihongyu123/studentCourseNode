@@ -61,7 +61,6 @@ export default {
         });
     },
     queryTeacherList: function () {
-        console.log('Teacher')
         return Teacher.findAll();
     },
     update: async function (model: Teacher, id: number) {

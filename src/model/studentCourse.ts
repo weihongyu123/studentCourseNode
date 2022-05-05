@@ -1,25 +1,9 @@
 import { Model, DataTypes } from "sequelize";
-import { Course } from './course'
+import { Course } from './course';
+import { Teacher } from './teacher'
 import db from "../db/mysql";
 
-class TeacherCourse extends Model { }
-TeacherCourse.init(
-    {
-        teacherId: {
-            type: DataTypes.INTEGER,
-            defaultValue: "",
-        },
-        courseId: {
-            type: DataTypes.INTEGER,
-            defaultValue: "",
-        }
-    },
-    {
-        sequelize: db,
-        freezeTableName: true,
-        tableName: "course",
-    }
-);
+
 class StudentCourse extends Model { }
 StudentCourse.init(
     {
@@ -35,19 +19,40 @@ StudentCourse.init(
     {
         sequelize: db,
         freezeTableName: true,
-        tableName: "course",
+        tableName: "student_course",
     }
 );
 
+Course.belongsTo(Teacher);
+Course.hasMany(StudentCourse);
+
+
 export default {
-    queryCourseList: function () {
+    queryCourseList: function (studentId: number) {
         return Course.findAll({
             include: [{
-                model: TeacherCourse
+                model: Teacher,
+                required: false
             },
             {
-                model: StudentCourse
+                model: StudentCourse,
+                required: false,
+                where: {
+                    studentId
+                }
             }]
         });
+    },
+
+    insert: function (model: any) {
+        return StudentCourse.create(model);
+    },
+    delete: function (id: number) {
+        console.log(id)
+        return StudentCourse.destroy({
+            where: { // 删除条件
+                id
+            }
+        })
     },
 };
