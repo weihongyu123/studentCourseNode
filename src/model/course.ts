@@ -47,8 +47,8 @@ Course.init(
 );
 
 export default {
-    insert: function (model: any) {
-        Course.sync()
+    insert: async function (model: any) {
+        await Course.sync()
         return Course.create(model);
     },
     get: function (id: number) {
