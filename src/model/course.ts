@@ -48,6 +48,7 @@ Course.init(
 
 export default {
     insert: function (model: any) {
+        Course.sync()
         return Course.create(model);
     },
     get: function (id: number) {
@@ -60,7 +61,7 @@ export default {
     queryCourseList: function (p: {
         [key: string]: any
     } = {}) {
-        
+
         return Course.findAll({
             where: p
         });
