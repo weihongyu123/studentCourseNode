@@ -2,7 +2,7 @@ import { Model, DataTypes } from "sequelize";
 import db from "../db/mysql";
 
 export class Course extends Model {
-    teacherId?: number;
+    // teacherId?: number;
 }
 Course.init(
     {
@@ -28,15 +28,13 @@ Course.init(
         },
         teacherId: {
             type: DataTypes.INTEGER,
-            defaultValue: "",
+            defaultValue: 0,
         },
         createdAt: {
             type: DataTypes.TIME,
-            defaultValue: "",
         },
         updatedAt: {
             type: DataTypes.TIME,
-            defaultValue: "",
         }
     },
     {
@@ -48,7 +46,6 @@ Course.init(
 
 export default {
     insert: async function (model: any) {
-        await Course.sync()
         return Course.create(model);
     },
     get: function (id: number) {
@@ -58,10 +55,10 @@ export default {
             },
         });
     },
-    queryCourseList: function (p: {
+    queryCourseList: async function (p: {
         [key: string]: any
     } = {}) {
-
+        await Course.sync()
         return Course.findAll({
             where: p
         });

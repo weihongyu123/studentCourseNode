@@ -29,7 +29,7 @@ StudentCourse.init(
 );
 
 // 课程列表
-Course.belongsTo(Teacher);
+// Course.belongsTo(Teacher);
 Course.hasMany(StudentCourse);
 
 // 成绩查询主表
@@ -56,7 +56,7 @@ export default {
     insert: function (model: any) {
         return StudentCourse.create(model);
     },
-    
+
     update: async function (model: StudentCourse, id: number) {
         const row = await StudentCourse.update(model, {
             where: {
