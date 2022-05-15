@@ -1,6 +1,7 @@
-import { Model, DataTypes } from "sequelize";
+import { Model, DataTypes, Op } from "sequelize";
 import { Course } from './course';
 import { Teacher } from './teacher'
+import { Student } from './student'
 import db from "../db/mysql";
 
 
@@ -14,6 +15,10 @@ StudentCourse.init(
         courseId: {
             type: DataTypes.INTEGER,
             defaultValue: "",
+        },
+        result: {
+            type: DataTypes.INTEGER,
+            defaultValue: "",
         }
     },
     {
@@ -23,9 +28,13 @@ StudentCourse.init(
     }
 );
 
+// 课程列表
 Course.belongsTo(Teacher);
 Course.hasMany(StudentCourse);
 
+// 成绩查询主表
+StudentCourse.belongsTo(Student)
+StudentCourse.belongsTo(Course);
 
 export default {
     queryCourseList: function (studentId: number) {
@@ -47,12 +56,41 @@ export default {
     insert: function (model: any) {
         return StudentCourse.create(model);
     },
+    
+    update: async function (model: StudentCourse, id: number) {
+        const row = await StudentCourse.update(model, {
+            where: {
+                id
+            }
+        })
+        return row
+    },
+
     delete: function (id: number) {
-        console.log(id)
         return StudentCourse.destroy({
             where: { // 删除条件
                 id
             }
         })
     },
+
+    // 选择教授课程的学生列表
+    queryResultList: function (teacherId: number) {
+        return StudentCourse.findAll({
+            include: [{
+                model: Student,
+                required: false,
+            },
+            {
+                model: Course,
+                required: false,
+                where: {
+                    teacherId: {
+                        [Op.eq]: teacherId
+                    }
+                }
+            }
+            ]
+        });
+    }
 };

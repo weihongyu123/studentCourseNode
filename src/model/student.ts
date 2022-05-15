@@ -1,7 +1,7 @@
 import { Model, DataTypes } from "sequelize";
 import db from "../db/mysql";
 
-class Student extends Model { }
+export class Student extends Model { }
 Student.init(
     {
         id: {
@@ -73,7 +73,6 @@ export default {
                 id
             }
         })
-        console.log(row)
         return row
     },
     delete: function (id: number) {

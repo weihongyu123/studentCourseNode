@@ -1,7 +1,7 @@
 import CourseModel from '../model/course'
 
-export async function queryCourseList() {
-    return CourseModel.queryCourseList();
+export async function queryCourseList(course: any) {
+    return CourseModel.queryCourseList(course);
 }
 
 export async function saveCourse(course: any) {

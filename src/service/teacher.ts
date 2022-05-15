@@ -4,6 +4,11 @@ export async function queryTeacherList() {
     return TeacherModel.queryTeacherList();
 }
 
+export async function queryOne(id: number) {
+    return TeacherModel.get(id);
+}
+
+
 export async function saveTeacher(teacher: any) {
     return TeacherModel.insert(teacher);
 }

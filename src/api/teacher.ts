@@ -1,7 +1,7 @@
 import Router from "@koa/router";
 import CrosMiddle from "../middleware/cros";
 
-import { queryTeacherList, saveTeacher, updateTeacher, deleteTeacher } from '../service/teacher'
+import { queryTeacherList, saveTeacher, updateTeacher, deleteTeacher, queryOne } from '../service/teacher'
 
 const router = new Router();
 
@@ -14,6 +14,17 @@ router.get('/queryTeacherList', CrosMiddle, async function (ctx) {
 
     }
 });
+
+router.get('/queryOne', CrosMiddle, async function (ctx) {
+    const { uuid } = ctx.params;
+    try {
+        const data = await queryOne(ctx.query.id);
+        ctx.body = data;
+    } catch (error) {
+
+    }
+});
+
 
 router.post('/saveTeacher', CrosMiddle, async function (ctx) {
     const { uuid } = ctx.params;

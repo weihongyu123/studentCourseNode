@@ -1,7 +1,9 @@
 import { Model, DataTypes } from "sequelize";
 import db from "../db/mysql";
 
-export class Course extends Model { }
+export class Course extends Model {
+    teacherId?: number;
+}
 Course.init(
     {
         id: {
@@ -55,8 +57,13 @@ export default {
             },
         });
     },
-    queryCourseList: function () {
-        return Course.findAll();
+    queryCourseList: function (p: {
+        [key: string]: any
+    } = {}) {
+        
+        return Course.findAll({
+            where: p
+        });
     },
     update: async function (model: Course, id: number) {
         const row = await Course.update(model, {
