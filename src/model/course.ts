@@ -2,7 +2,7 @@ import { Model, DataTypes } from "sequelize";
 import db from "../db/mysql";
 
 export class Course extends Model {
-    // teacherId?: number;
+
 }
 Course.init(
     {
@@ -58,7 +58,6 @@ export default {
     queryCourseList: async function (p: {
         [key: string]: any
     } = {}) {
-        await Course.sync()
         return Course.findAll({
             where: p
         });

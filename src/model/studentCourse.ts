@@ -29,8 +29,8 @@ StudentCourse.init(
 );
 
 // 课程列表
-// Course.belongsTo(Teacher);
-Course.hasMany(StudentCourse);
+Course.belongsTo(Teacher);
+Course.hasOne(StudentCourse);
 
 // 成绩查询主表
 StudentCourse.belongsTo(Student)
