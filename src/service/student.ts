@@ -1,15 +1,24 @@
 import StudentModel from '../model/student'
+import { md5password } from '../util/passwordHandel';
+import { create } from '../service/user'
 
 export async function queryStudentList() {
     return StudentModel.queryStudentList();
 }
 
-export async function queryOne(id: number) {
-    return StudentModel.get(id);
+export async function queryOne(where: any) {
+    return StudentModel.get(where);
 }
 
 
 export async function saveStudent(student: any) {
+    // 创建学生用户
+    create({
+        userName: student.code,
+        password: md5password('123456'),
+        type: 3
+    })
+
     return StudentModel.insert(student);
 }
 

@@ -18,7 +18,7 @@ router.get('/queryTeacherList', CrosMiddle, async function (ctx) {
 router.get('/queryOne', CrosMiddle, async function (ctx) {
     const { uuid } = ctx.params;
     try {
-        const data = await queryOne(ctx.query.id);
+        const data = await queryOne(ctx.query);
         ctx.body = data;
     } catch (error) {
 

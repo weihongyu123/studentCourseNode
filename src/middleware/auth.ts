@@ -10,19 +10,18 @@ export const verifyLogin = async (ctx, next) => {
     //2.判断用户名和密码是否为空
     if (!userName || !password) {
         const error = new Error('账号或密码为空');
-        return ctx.app.emit("error", error, ctx);
+        throw new Error('账户或者密码不存在');
     }
     // 3.判断用户是否存在
     const user = await getUserByName(userName);
     if (!user) {
-        const error = new Error('用户不存在');
-        return ctx.app.emit("error", error, ctx);
+        throw new Error('用户不存在');
     }
 
     // 4.判断密码是否和数据库中的密码是一致(加密)
     if (md5password(password) !== user?.password) {
         const error = new Error('密码不正确');
-        return ctx.app.emit("error", error, ctx);
+        throw new Error('密码不正确');
     }
     //将user信息放入ctx，一边后面的中间件处理
     ctx.user = user
@@ -30,7 +29,6 @@ export const verifyLogin = async (ctx, next) => {
 };
 
 export const verifyAuth = async (ctx, next) => {
-    console.log('验证登陆的授权');
     //获取token
     const authorization = ctx.headers.authorization
 

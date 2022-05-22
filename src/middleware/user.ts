@@ -16,7 +16,7 @@ export const verifyUsers = async (ctx, next) => {
     const result = await getUserByName(userName);
 
     if (result) {
-        const error = new Error('用户已经退出');
+        const error = new Error('用户已经注册');
         return ctx.app.emit('error', error, ctx);
     }
     //如果有效，则进入下一个中间件

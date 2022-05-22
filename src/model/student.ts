@@ -1,7 +1,9 @@
 import { Model, DataTypes } from "sequelize";
 import db from "../db/mysql";
 
-export class Student extends Model { }
+export class Student extends Model {
+    id: number
+}
 Student.init(
     {
         id: {
@@ -57,11 +59,9 @@ export default {
     insert: function (model: any) {
         return Student.create(model);
     },
-    get: function (id: number) {
+    get: function (where: any) {
         return Student.findOne({
-            where: {
-                id,
-            },
+            where
         });
     },
     queryStudentList: function () {

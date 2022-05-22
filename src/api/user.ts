@@ -6,6 +6,10 @@ import { verifyLogin } from '../middleware/auth';
 import { PRIVATE_KEY } from '../../config/index';
 
 import { create } from '../service/user'
+import { queryOne as queryTeacher } from '../service/teacher'
+import { queryOne as queryStudent } from '../service/student'
+
+
 
 const router = new Router();
 
@@ -25,7 +29,8 @@ router.post('/login', CrosMiddle, verifyLogin, async function (ctx) {
     const { uuid } = ctx.params;
 
     try {
-        const {id,userName} = ctx.user;
+        const { id, userName, type } = ctx.user;
+
 
         const token = jwt.sign({ id, userName }, PRIVATE_KEY, {
             //24h后失效
@@ -33,7 +38,24 @@ router.post('/login', CrosMiddle, verifyLogin, async function (ctx) {
             //非对称加密
             algorithm: 'RS256'
         })
-        ctx.body = { id, userName, token };
+
+        const info: {
+            teacherId: undefined | number,
+            studentId: undefined | number,
+        } = {
+            teacherId: undefined,
+            studentId: undefined
+        }
+
+        if (type === 2) {
+            const tracher = await queryTeacher({ code: userName })
+            info.teacherId = tracher?.id
+        } else if (type === 3) {
+            const student = await queryStudent({ code: userName })
+            info.studentId = student?.id
+        }
+
+        ctx.body = { id, userName, type, token, ...info };
     } catch (error) {
     }
 });
