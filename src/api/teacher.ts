@@ -30,8 +30,6 @@ router.post('/saveTeacher', CrosMiddle, async function (ctx) {
     const { uuid } = ctx.params;
     try {
         const params = ctx.query
-
-        console.log(params)
         if (params.id) {
             const data = await updateTeacher(ctx.query);
             ctx.body = data;

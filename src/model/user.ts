@@ -47,6 +47,12 @@ export default {
     insert: function (model: any) {
         return User.create(model);
     },
+    update: async function (model: User, where: any) {
+        const row = await User.update(model, {
+            where
+        })
+        return row
+    },
     getUserName: function (userName: string) {
         return User.findOne({
             where: {

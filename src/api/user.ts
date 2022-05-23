@@ -5,7 +5,7 @@ import { verifyUsers, handlePassword } from '../middleware/user';
 import { verifyLogin } from '../middleware/auth';
 import { PRIVATE_KEY } from '../../config/index';
 
-import { create } from '../service/user'
+import { create, updateUser } from '../service/user'
 import { queryOne as queryTeacher } from '../service/teacher'
 import { queryOne as queryStudent } from '../service/student'
 
@@ -57,6 +57,16 @@ router.post('/login', CrosMiddle, verifyLogin, async function (ctx) {
 
         ctx.body = { id, userName, type, token, ...info };
     } catch (error) {
+    }
+});
+
+router.post('/updatePassword', CrosMiddle, async function (ctx) {
+    const { uuid } = ctx.params;
+    try {
+        const data = await updateUser(ctx.query);
+        ctx.body = data;
+    } catch (error) {
+
     }
 });
 

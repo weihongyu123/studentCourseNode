@@ -78,19 +78,18 @@ export default {
     queryResultList: function (teacherId: number) {
         return StudentCourse.findAll({
             include: [{
-                model: Student,
-                required: false,
-            },
-            {
                 model: Course,
-                required: false,
+                required: true,
                 where: {
                     teacherId: {
                         [Op.eq]: teacherId
                     }
-                }
-            }
-            ]
+                },
+            }, {
+                model: Student,
+                required: false,
+
+            }]
         });
     }
 };
