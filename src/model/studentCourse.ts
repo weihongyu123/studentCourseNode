@@ -8,12 +8,25 @@ import db from "../db/mysql";
 class StudentCourse extends Model { }
 StudentCourse.init(
     {
+        id: {
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+            autoIncrement: true,
+        },
         studentId: {
             type: DataTypes.INTEGER,
             defaultValue: "",
         },
         courseId: {
             type: DataTypes.INTEGER,
+            defaultValue: "",
+        },
+        createdAt: {
+            type: DataTypes.TIME,
+            defaultValue: "",
+        },
+        updatedAt: {
+            type: DataTypes.TIME,
             defaultValue: "",
         },
         result: {
@@ -30,13 +43,35 @@ StudentCourse.init(
 
 // 课程列表
 Course.belongsTo(Teacher);
-Course.hasOne(StudentCourse);
+Teacher.hasMany(Course);
 
-// 成绩查询主表
-StudentCourse.belongsTo(Student)
+Course.belongsToMany(Student, { through: StudentCourse });
+Student.belongsToMany(Course, { through: StudentCourse });
+
 StudentCourse.belongsTo(Course);
+StudentCourse.belongsTo(Student);
+
+Course.hasMany(StudentCourse);
+Student.hasMany(StudentCourse);
+
 
 export default {
+    // queryCourseList: function (studentId: number) {
+    //     return Course.findAll({
+    //         include: [{
+    //             model: Teacher,
+    //             required: false
+    //         },
+    //         {
+    //             model: StudentCourse,
+    //             required: false,
+    //             where: {
+    //                 studentId
+    //             }
+    //         }]
+    //     });
+    // },
+
     queryCourseList: function (studentId: number) {
         return Course.findAll({
             include: [{
@@ -44,10 +79,10 @@ export default {
                 required: false
             },
             {
-                model: StudentCourse,
+                model: Student,
                 required: false,
                 where: {
-                    studentId
+                    id: studentId
                 }
             }]
         });
@@ -73,6 +108,23 @@ export default {
             }
         })
     },
+
+    // queryResultList: function (teacherId: number) {
+    //     return Course.findAll({
+    //         where: {
+    //             teacherId: teacherId
+    //         },
+    //         include: [{
+    //             model: Teacher,
+    //             required: false
+    //         },
+    //         {
+    //             model: Student,
+    //             required: true,
+    //             right:true
+    //         }]
+    //     });
+    // }
 
     // 选择教授课程的学生列表
     queryResultList: function (teacherId: number) {
