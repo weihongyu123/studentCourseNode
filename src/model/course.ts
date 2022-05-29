@@ -1,9 +1,13 @@
 import { Model, DataTypes } from "sequelize";
 import db from "../db/mysql";
 
+import { Teacher } from "./teacher";
+import { Student } from './student'
 export class Course extends Model {
 
 }
+
+
 Course.init(
     {
         id: {
@@ -55,11 +59,20 @@ export default {
             },
         });
     },
+
     queryCourseList: async function (p: {
         [key: string]: any
     } = {}) {
         return Course.findAll({
-            where: p
+            include: [{
+                model: Teacher,
+                required: false
+            },
+            {
+                model: Student,
+                required: false,
+            }],
+            where: p,
         });
     },
     update: async function (model: Course, id: number) {

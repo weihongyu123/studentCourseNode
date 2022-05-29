@@ -2,8 +2,10 @@ import StudentModel from '../model/student'
 import { md5password } from '../util/passwordHandel';
 import { create } from '../service/user'
 
-export async function queryStudentList() {
-    return StudentModel.queryStudentList();
+export async function queryStudentList(where: any) {
+
+    console.log(where)
+    return StudentModel.queryStudentList(where);
 }
 
 export async function queryOne(where: any) {

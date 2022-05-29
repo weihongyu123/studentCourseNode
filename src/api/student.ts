@@ -7,8 +7,9 @@ const router = new Router();
 
 router.get('/queryStudentList', CrosMiddle, async function (ctx) {
     const { uuid } = ctx.params;
+
     try {
-        const data = await queryStudentList();
+        const data = await queryStudentList(ctx.query);
         ctx.body = data;
     } catch (error) {
 

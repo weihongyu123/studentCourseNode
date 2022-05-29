@@ -31,6 +31,18 @@ Teacher.init(
             type: DataTypes.STRING(255),
             defaultValue: "",
         },
+        phone: {
+            type: DataTypes.STRING(255),
+            defaultValue: "",
+        },
+        identityNumber: {
+            type: DataTypes.STRING(255),
+            defaultValue: "",
+        },
+        address: {
+            type: DataTypes.STRING(255),
+            defaultValue: "",
+        },
         courseId: {
             type: DataTypes.JSON,
             defaultValue: "",
@@ -60,8 +72,12 @@ export default {
             where
         });
     },
-    queryTeacherList: function () {
-        return Teacher.findAll();
+    queryTeacherList: function (p: {
+        [key: string]: any
+    } = {}) {
+        return Teacher.findAll({
+            where: p
+        });
     },
     update: async function (model: Teacher, id: number) {
         const row = await Teacher.update(model, {

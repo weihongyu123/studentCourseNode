@@ -31,7 +31,15 @@ Student.init(
             type: DataTypes.STRING(255),
             defaultValue: "",
         },
-        password: {
+        phone: {
+            type: DataTypes.STRING(255),
+            defaultValue: "",
+        },
+        identityNumber: {
+            type: DataTypes.STRING(255),
+            defaultValue: "",
+        },
+        address: {
             type: DataTypes.STRING(255),
             defaultValue: "",
         },
@@ -64,8 +72,12 @@ export default {
             where
         });
     },
-    queryStudentList: function () {
-        return Student.findAll();
+    queryStudentList: function (p: {
+        [key: string]: any
+    } = {}) {
+        return Student.findAll({
+            where: p
+        });
     },
     update: async function (model: Student, id: number) {
         const row = await Student.update(model, {

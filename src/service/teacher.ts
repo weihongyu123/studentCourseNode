@@ -2,8 +2,8 @@ import TeacherModel from '../model/teacher';
 import { md5password } from '../util/passwordHandel';
 import { create } from '../service/user'
 
-export async function queryTeacherList() {
-    return TeacherModel.queryTeacherList();
+export async function queryTeacherList(where: any) {
+    return TeacherModel.queryTeacherList(where);
 }
 
 export async function queryOne(where: any) {

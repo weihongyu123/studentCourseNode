@@ -5,7 +5,7 @@ import { Student } from './student'
 import db from "../db/mysql";
 
 
-class StudentCourse extends Model { }
+export class StudentCourse extends Model { }
 StudentCourse.init(
     {
         id: {
@@ -56,22 +56,6 @@ Student.hasMany(StudentCourse);
 
 
 export default {
-    // queryCourseList: function (studentId: number) {
-    //     return Course.findAll({
-    //         include: [{
-    //             model: Teacher,
-    //             required: false
-    //         },
-    //         {
-    //             model: StudentCourse,
-    //             required: false,
-    //             where: {
-    //                 studentId
-    //             }
-    //         }]
-    //     });
-    // },
-
     queryCourseList: function (studentId: number) {
         return Course.findAll({
             include: [{
@@ -87,11 +71,9 @@ export default {
             }]
         });
     },
-
     insert: function (model: any) {
         return StudentCourse.create(model);
     },
-
     update: async function (model: StudentCourse, id: number) {
         const row = await StudentCourse.update(model, {
             where: {
@@ -108,23 +90,6 @@ export default {
             }
         })
     },
-
-    // queryResultList: function (teacherId: number) {
-    //     return Course.findAll({
-    //         where: {
-    //             teacherId: teacherId
-    //         },
-    //         include: [{
-    //             model: Teacher,
-    //             required: false
-    //         },
-    //         {
-    //             model: Student,
-    //             required: true,
-    //             right:true
-    //         }]
-    //     });
-    // }
 
     // 选择教授课程的学生列表
     queryResultList: function (teacherId: number) {
